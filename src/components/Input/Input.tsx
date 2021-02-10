@@ -53,6 +53,7 @@ const Input = ({ placeholder, onChange, onEnter, value }: InputProps) => {
       onKeyDown={({ keyCode }) => {
         if (keyCode === 13) onEnter();
       }}
+      onBlur={onEnter}
       placeholder={placeholder}
       disableUnderline
       startAdornment={Adornment}
