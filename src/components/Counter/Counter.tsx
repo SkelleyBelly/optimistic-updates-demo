@@ -1,6 +1,6 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, BoxProps, Typography } from "@material-ui/core";
 
-export interface CounterProps {
+export interface CounterProps extends BoxProps {
   value: number;
 }
 
@@ -12,7 +12,7 @@ const safeValue = (value: number): string => {
   return `${value}`;
 };
 
-const Counter = ({value}: CounterProps) => (
+const Counter = ({ value, ...BoxProps }: CounterProps) => (
   <Box
     height="6rem"
     width="6rem"
@@ -21,6 +21,7 @@ const Counter = ({value}: CounterProps) => (
     display="flex"
     flexDirection="column"
     justifyContent="center"
+    {...BoxProps}
   >
     <Typography variant="h3" color="primary" align="center">
       {safeValue(value)}
