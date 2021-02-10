@@ -9,6 +9,7 @@ import {
 
 const theme = createMuiTheme({
   typography: {
+    fontSize: 20,
     fontFamily: '"Quicksand", "Helvetica", "Arial", sans-serif',
   },
   spacing: 4,
