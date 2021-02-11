@@ -35,6 +35,7 @@ const TemplateWithState: Story<ListItemProps> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
+  name: "Final Option",
   hasBeenRead: true,
 };
 

@@ -50,9 +50,9 @@ const ListItem = ({
       disabled={hasBeenRead}
       classes={classes}
       value={inputValue}
-      onKeyDown={({ keyCode, target: { value } }: any) => {
-        if (keyCode === 13) onNameChange(value);
-      }}
+      // onKeyDown={({ keyCode, target: { value } }: any) => {
+      //   if (keyCode === 13) onNameChange(value);
+      // }}
       fullWidth
       onChange={({ target: { value } }) => setInputValue(value)}
       disableUnderline
