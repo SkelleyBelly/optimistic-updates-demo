@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container } from "@material-ui/core";
+import { List } from "./components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const initialState = [
+  {
+    id: 1,
+    name: "Final Option",
+    hasBeenRead: true,
+  },
+  {
+    id: 2,
+    name: "Marauder",
+    hasBeenRead: true,
+  },
+  {
+    id: 3,
+    name: "The Chimp Paradox",
+    hasBeenRead: false,
+  },
+  {
+    id: 4,
+    name: "The Guest List",
+    hasBeenRead: false,
+  },
+  {
+    id: 5,
+    name: "The Galaxy, and the Grounds Within",
+    hasBeenRead: false,
+  },
+];
+
+const App = () => (
+  <Container maxWidth="md" style={{paddingTop: 100}}>
+    <List books={initialState} onChange={console.log} onAdd={(name) => console.log({name})}/>
+  </Container>
+)
 
 export default App;
