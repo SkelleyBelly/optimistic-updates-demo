@@ -28,7 +28,7 @@ const Checkbox = ({ value, onChange }: CheckboxProps) => {
   return (
     <IconButton disableRipple onClick={() => onChange(!value)} size="small">
       <span className={classes.iconContainer}>
-        <Zoom in={value}>
+        <Zoom in={value} appear={false}>
           <span className={classes.iconInner} />
         </Zoom>
       </span>
