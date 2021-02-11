@@ -1,5 +1,5 @@
 import { Story, Meta } from "@storybook/react";
-import {  useState } from "react";
+import { useState } from "react";
 
 import List, { ListProps, Book } from "./List";
 
@@ -45,8 +45,6 @@ Default.args = {
 
 const TemplateWithState: Story<ListProps> = (args) => {
   const [books, setBooks] = useState(initialState);
-  
-  console.log(books)
 
   const onChange = (value: Book) => {
     setBooks((currentBooks) => {
