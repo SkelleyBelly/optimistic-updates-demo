@@ -42,8 +42,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-  addBook(id: Int!, title: String!): Book
-  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!):Book
+  addBook(id: Int!, title: String!, delay: Int): Book
+  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!, delay: Int):Book
 }
 `;
 
@@ -53,7 +53,9 @@ const resolvers: IResolvers = {
     books: () => books
   },
   Mutation: {
-    addBook: (_, { id, title }) => {
+    addBook: async (_, { id, title, delay = 0 }) => {
+
+      await new Promise<void>(resolve => {setTimeout(() => resolve(), delay)});
 
       if (books.some(({ id: ID }) => id === ID)) {
         throw new UserInputError('This ID already exists in the database', {
@@ -68,7 +70,9 @@ const resolvers: IResolvers = {
       return newBook;
     },
 
-    updateBook: (_, { id, title, hasBeenRead }) => {
+    updateBook: async (_, { id, title, hasBeenRead, delay = 0 }) => {
+
+      await new Promise<void>(resolve => {setTimeout(() => resolve(), delay)});
 
       const index = books.findIndex(({ id: ID }) => id === ID);
 

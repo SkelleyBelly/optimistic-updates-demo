@@ -3,6 +3,8 @@ import { Box, Container, Slide } from "@material-ui/core";
 import { List, Book } from "./components";
 import { GET_BOOKS, UPDATE_BOOK, ADD_BOOK } from "./query";
 
+const DELAY = 1500;
+
 const App = () => {
   const { data, loading } = useQuery<{ books: Array<Book> }>(GET_BOOKS);
 
@@ -24,12 +26,12 @@ const App = () => {
   const books = data?.books ?? [];
 
   const updateBook = (updatedBook: Book) => {
-    updateBookMutation({ variables: updatedBook });
+    updateBookMutation({ variables: {...updatedBook, delay: DELAY} });
   };
 
   const addBook = (title: Book["title"], clearInput: () => void) => {
     const nextId = Math.max(...books.map(({ id }) => id)) + 1;
-    addBookMutation({ variables: { title, id: nextId } });
+    addBookMutation({ variables: { title, id: nextId, delay: DELAY } });
     clearInput();
   };
 
