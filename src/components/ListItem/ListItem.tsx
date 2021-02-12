@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import Checkbox from "../Checkbox";
 
 export interface ListItemProps {
-  name: string;
+  title: string;
   hasBeenRead: boolean;
-  onNameChange: (name: string) => void;
+  onTitleChange: (title: string) => void;
   onToggle: (hasBeenRead: boolean) => void;
 }
 
@@ -24,17 +24,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const ListItem = ({
-  name,
+  title,
   hasBeenRead,
   onToggle,
-  onNameChange,
+  onTitleChange,
 }: ListItemProps) => {
   const classes = useStyles();
-  const [inputValue, setInputValue] = useState(name);
+  const [inputValue, setInputValue] = useState(title);
 
   useEffect(() => {
-    setInputValue(name);
-  }, [name]);
+    setInputValue(title);
+  }, [title]);
 
   const Adornment = useMemo(
     () => (
@@ -51,13 +51,13 @@ const ListItem = ({
       classes={classes}
       value={inputValue}
       // onKeyDown={({ keyCode, target: { value } }: any) => {
-      //   if (keyCode === 13) onNameChange(value);
+      //   if (keyCode === 13) onTitleChange(value);
       // }}
       fullWidth
       onChange={({ target: { value } }) => setInputValue(value)}
       disableUnderline
       startAdornment={Adornment}
-      onBlur={({ target: { value } }) => onNameChange(value)}
+      onBlur={({ target: { value } }) => onTitleChange(value)}
     />
   );
 };

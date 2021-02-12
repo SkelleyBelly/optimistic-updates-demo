@@ -11,27 +11,27 @@ export default {
 const initialState = [
   {
     id: 1,
-    name: "Final Option",
+    title: "Final Option",
     hasBeenRead: true,
   },
   {
     id: 2,
-    name: "Marauder",
+    title: "Marauder",
     hasBeenRead: true,
   },
   {
     id: 3,
-    name: "The Chimp Paradox",
+    title: "The Chimp Paradox",
     hasBeenRead: false,
   },
   {
     id: 4,
-    name: "The Guest List",
+    title: "The Guest List",
     hasBeenRead: false,
   },
   {
     id: 5,
-    name: "The Galaxy, and the Grounds Within",
+    title: "The Galaxy, and the Grounds Within",
     hasBeenRead: false,
   },
 ];
@@ -58,11 +58,11 @@ const TemplateWithState: Story<ListProps> = (args) => {
     });
   };
 
-  const onAdd = (name: Book["name"], clearInput: () => void) => {
+  const onAdd = (title: Book["title"], clearInput: () => void) => {
     setBooks((currentBooks) => {
       const nextId = Math.max(...currentBooks.map(({ id }) => id)) + 1;
 
-      return [...currentBooks, { id: nextId, name, hasBeenRead: false }];
+      return [...currentBooks, { id: nextId, title, hasBeenRead: false }];
     });
     clearInput();
   };

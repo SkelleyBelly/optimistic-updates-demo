@@ -13,7 +13,7 @@ const Template: Story<ListItemProps> = (args) => <ListItem {...args} />;
 const TemplateWithState: Story<ListItemProps> = (args) => {
   const [value, setValue] = useState({
     hasBeenRead: false,
-    name: "Final Option",
+    title: "Final Option",
   });
 
   const handleToggle = (value: boolean) => {
@@ -23,19 +23,19 @@ const TemplateWithState: Story<ListItemProps> = (args) => {
     }))
   }
 
-  const handleNameChange = (value: string) => {
+  const handleTitleChange = (value: string) => {
     setValue(state => ({
       ...state, 
-      name: value
+      title: value
     }))
   }
 
-  return <ListItem {...args} {...value} onToggle={handleToggle} onNameChange={handleNameChange}/>;
+  return <ListItem {...args} {...value} onToggle={handleToggle} onTitleChange={handleTitleChange}/>;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  name: "Final Option",
+  title: "Final Option",
   hasBeenRead: true,
 };
 

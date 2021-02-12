@@ -1,5 +1,7 @@
-import { Container } from "@material-ui/core";
+import { useQuery } from "@apollo/client";
+import { Box, Container, Fade, Slide } from "@material-ui/core";
 import { List } from "./components";
+import { GET_BOOKS } from "./query";
 
 const initialState = [
   {
@@ -29,10 +31,24 @@ const initialState = [
   },
 ];
 
-const App = () => (
-  <Container maxWidth="md" style={{paddingTop: 100}}>
-    <List books={initialState} onChange={console.log} onAdd={(name) => console.log({name})}/>
-  </Container>
-)
+const App = () => {
+  const { data, loading } = useQuery(GET_BOOKS);
+
+  const books = data?.books ?? [];
+
+  return (
+    <Container maxWidth="md" style={{ paddingTop: 100 }}>
+      <Slide in={!loading} direction="up">
+        <Box>
+          <List
+            books={books}
+            onChange={console.log}
+            onAdd={(name) => console.log({ name })}
+          />
+        </Box>
+      </Slide>
+    </Container>
+  );
+};
 
 export default App;

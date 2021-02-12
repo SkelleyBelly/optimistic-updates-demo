@@ -7,12 +7,12 @@ import ListItem from "../ListItem";
 
 export interface Book {
   id: number;
-  name: string;
+  title: string;
   hasBeenRead: boolean;
 }
 export interface ListProps {
   onChange: (value: Book) => void;
-  onAdd: (name: string, clearInput: () => void) => void;
+  onAdd: (title: string, clearInput: () => void) => void;
   books: Array<Book>;
 }
 
@@ -39,16 +39,16 @@ const List = ({ books, onChange, onAdd }: ListProps) => {
       </Box>
       <Box my={5} mx={10}>
         <Grid container spacing={4}>
-          {books.map(({ hasBeenRead, name, id }, index) => (
+          {books.map(({ hasBeenRead, title, id }, index) => (
             <Grid item xs={12} key={id}>
               <ListItem
-                name={name}
-                onNameChange={(newName) =>
-                  onChange({ id, hasBeenRead, name: newName })
+                title={title}
+                onTitleChange={(newTitle) =>
+                  onChange({ id, hasBeenRead, title: newTitle })
                 }
                 hasBeenRead={hasBeenRead}
                 onToggle={(beenRead) =>
-                  onChange({ id, name, hasBeenRead: beenRead })
+                  onChange({ id, title, hasBeenRead: beenRead })
                 }
               />
             </Grid>
