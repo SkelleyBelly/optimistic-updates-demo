@@ -42,8 +42,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-  addBook(id: Int!, title: String!, delay: Int): Book
-  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!, delay: Int):Book
+  addBook(id: Int!, title: String!, delay: Int, error: Boolean): Book
+  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!, delay: Int, error: Boolean):Book
 }
 `;
 

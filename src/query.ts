@@ -10,8 +10,8 @@ export const GET_BOOKS = gql`
 }`
 
 export const UPDATE_BOOK = gql`
-    mutation UpdateBook($id: Int!, $title: String!, $hasBeenRead:Boolean!, $delay:Int) {
-        updateBook(id: $id, title: $title, hasBeenRead: $hasBeenRead, delay: $delay){
+    mutation UpdateBook($id: Int!, $title: String!, $hasBeenRead:Boolean!, $delay:Int, $error: Boolean) {
+        updateBook(id: $id, title: $title, hasBeenRead: $hasBeenRead, delay: $delay, error: $error){
             id
             title
             hasBeenRead
@@ -19,8 +19,8 @@ export const UPDATE_BOOK = gql`
 }`
 
 export const ADD_BOOK = gql`
-    mutation($id: Int!, $title: String!, $delay:Int) {
-        addBook(id: $id, title: $title, delay: $delay){
+    mutation($id: Int!, $title: String!, $delay:Int, $error: Boolean) {
+        addBook(id: $id, title: $title, delay: $delay, error: $error){
             id
             title
             hasBeenRead

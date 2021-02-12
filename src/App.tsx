@@ -9,6 +9,7 @@ const App = () => {
   const { data, loading } = useQuery<{ books: Array<Book> }>(GET_BOOKS);
 
   const [updateBookMutation] = useMutation(UPDATE_BOOK, {
+    onError: console.log,
     optimisticResponse: ({ id, title, hasBeenRead }) => ({
       updateBook: {
         id,
@@ -44,7 +45,7 @@ const App = () => {
   const books = data?.books ?? [];
 
   const updateBook = (updatedBook: Book) => {
-    updateBookMutation({ variables: { ...updatedBook, delay: DELAY } });
+    updateBookMutation({ variables: { ...updatedBook, delay: DELAY, error: true } });
   };
 
   const addBook = (title: Book["title"], clearInput: () => void) => {
