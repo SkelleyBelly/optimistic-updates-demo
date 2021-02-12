@@ -53,9 +53,15 @@ const resolvers: IResolvers = {
     books: () => books
   },
   Mutation: {
-    addBook: async (_, { id, title, delay = 0 }) => {
+    addBook: async (_, { id, title, delay = 0, error = false }) => {
 
       await new Promise<void>(resolve => {setTimeout(() => resolve(), delay)});
+
+      if (error){
+        throw new UserInputError('Error arg was set to true. You asked for this.', {
+          invalidArgs: ['error'],
+        });
+      }
 
       if (books.some(({ id: ID }) => id === ID)) {
         throw new UserInputError('This ID already exists in the database', {
@@ -70,9 +76,15 @@ const resolvers: IResolvers = {
       return newBook;
     },
 
-    updateBook: async (_, { id, title, hasBeenRead, delay = 0 }) => {
+    updateBook: async (_, { id, title, hasBeenRead, delay = 0, error = false }) => {
 
       await new Promise<void>(resolve => {setTimeout(() => resolve(), delay)});
+
+      if (error){
+        throw new UserInputError('Error arg was set to true. You asked for this.', {
+          invalidArgs: ['error'],
+        });
+      }
 
       const index = books.findIndex(({ id: ID }) => id === ID);
 
