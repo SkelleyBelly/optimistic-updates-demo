@@ -57,7 +57,9 @@ const ListItem = ({
       onChange={({ target: { value } }) => setInputValue(value)}
       disableUnderline
       startAdornment={Adornment}
-      onBlur={({ target: { value } }) => onTitleChange(value)}
+      onBlur={({ target: { value } }) => {
+        if (value !== title) onTitleChange(value);
+      }}
     />
   );
 };

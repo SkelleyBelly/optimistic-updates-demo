@@ -8,10 +8,28 @@ const DELAY = 1500;
 const App = () => {
   const { data, loading } = useQuery<{ books: Array<Book> }>(GET_BOOKS);
 
-  const [updateBookMutation] = useMutation(UPDATE_BOOK);
+  const [updateBookMutation] = useMutation(UPDATE_BOOK, {
+    optimisticResponse: ({ id, title, hasBeenRead }) => ({
+      updateBook: {
+        id,
+        hasBeenRead,
+        title,
+        __typename: "Book",
+      },
+    }),
+  });
 
   const [addBookMutation] = useMutation(ADD_BOOK, {
+    optimisticResponse: ({ id, title }) => ({
+      addBook: {
+        id,
+        hasBeenRead: false,
+        title,
+        __typename: "Book",
+      },
+    }),
     update: (cache, { data: { addBook } }) => {
+      console.log("UPDATED")
       cache.modify({
         fields: {
           books: (existingBooks, { toReference }) => [
@@ -26,7 +44,7 @@ const App = () => {
   const books = data?.books ?? [];
 
   const updateBook = (updatedBook: Book) => {
-    updateBookMutation({ variables: {...updatedBook, delay: DELAY} });
+    updateBookMutation({ variables: { ...updatedBook, delay: DELAY } });
   };
 
   const addBook = (title: Book["title"], clearInput: () => void) => {
