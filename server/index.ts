@@ -32,7 +32,7 @@ const books = [
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
   type Book {
-    id: ID!
+    id: Int!
     title: String!
     hasBeenRead: Boolean!
   }
@@ -42,8 +42,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-  addBook(id: Int!, title: String!): [Book]
-  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!): [Book]
+  addBook(id: Int!, title: String!): Book
+  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!):Book
 }
 `;
 
@@ -55,30 +55,34 @@ const resolvers: IResolvers = {
   Mutation: {
     addBook: (_, { id, title }) => {
 
-      if (books.some(({id: ID}) => id === ID)){
+      if (books.some(({ id: ID }) => id === ID)) {
         throw new UserInputError('This ID already exists in the database', {
           invalidArgs: ['id'],
         });
       }
 
-      books.push({id, title, hasBeenRead: false});
+      const newBook = { id, title, hasBeenRead: false }
 
-      return books;
+      books.push(newBook);
+
+      return newBook;
     },
 
-    updateBook: (_, {id, title, hasBeenRead}) => {
+    updateBook: (_, { id, title, hasBeenRead }) => {
 
-      const index = books.findIndex(({id: ID}) => id === ID);
+      const index = books.findIndex(({ id: ID }) => id === ID);
 
-      if (index === -1){
+      if (index === -1) {
         throw new UserInputError('This ID does not exist in the database', {
           invalidArgs: ['id'],
         });
       }
 
-      books[index] = {id, title, hasBeenRead};
+      const updatedBook = { id, title, hasBeenRead }
 
-      return books;
+      books[index] = updatedBook;
+
+      return updatedBook;
     }
   }
 };

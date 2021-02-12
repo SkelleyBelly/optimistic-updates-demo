@@ -1,50 +1,43 @@
-import { useQuery } from "@apollo/client";
-import { Box, Container, Fade, Slide } from "@material-ui/core";
-import { List } from "./components";
-import { GET_BOOKS } from "./query";
-
-const initialState = [
-  {
-    id: 1,
-    name: "Final Option",
-    hasBeenRead: true,
-  },
-  {
-    id: 2,
-    name: "Marauder",
-    hasBeenRead: true,
-  },
-  {
-    id: 3,
-    name: "The Chimp Paradox",
-    hasBeenRead: false,
-  },
-  {
-    id: 4,
-    name: "The Guest List",
-    hasBeenRead: false,
-  },
-  {
-    id: 5,
-    name: "The Galaxy, and the Grounds Within",
-    hasBeenRead: false,
-  },
-];
+import { useMutation, useQuery } from "@apollo/client";
+import { Box, Container, Slide } from "@material-ui/core";
+import { List, Book } from "./components";
+import { GET_BOOKS, UPDATE_BOOK, ADD_BOOK } from "./query";
 
 const App = () => {
-  const { data, loading } = useQuery(GET_BOOKS);
+  const { data, loading } = useQuery<{ books: Array<Book> }>(GET_BOOKS);
+
+  const [updateBookMutation] = useMutation(UPDATE_BOOK);
+
+  const [addBookMutation] = useMutation(ADD_BOOK, {
+    update: (cache, { data: { addBook } }) => {
+      cache.modify({
+        fields: {
+          books: (existingBooks, { toReference }) => [
+            ...existingBooks,
+            toReference(addBook),
+          ],
+        },
+      });
+    },
+  });
 
   const books = data?.books ?? [];
+
+  const updateBook = (updatedBook: Book) => {
+    updateBookMutation({ variables: updatedBook });
+  };
+
+  const addBook = (title: Book["title"], clearInput: () => void) => {
+    const nextId = Math.max(...books.map(({ id }) => id)) + 1;
+    addBookMutation({ variables: { title, id: nextId } });
+    clearInput();
+  };
 
   return (
     <Container maxWidth="md" style={{ paddingTop: 100 }}>
       <Slide in={!loading} direction="up">
         <Box>
-          <List
-            books={books}
-            onChange={console.log}
-            onAdd={(name) => console.log({ name })}
-          />
+          <List books={books} onChange={updateBook} onAdd={addBook} />
         </Box>
       </Slide>
     </Container>
