@@ -1,25 +1,77 @@
 import express from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer, gql, IResolvers, UserInputError } from 'apollo-server-express';
+
+const books = [
+  {
+    id: 1,
+    title: "Final Option",
+    hasBeenRead: true,
+  },
+  {
+    id: 2,
+    title: "Marauder",
+    hasBeenRead: true,
+  },
+  {
+    id: 3,
+    title: "The Chimp Paradox",
+    hasBeenRead: false,
+  },
+  {
+    id: 4,
+    title: "The Guest List",
+    hasBeenRead: false,
+  },
+  {
+    id: 5,
+    title: "The Galaxy, and the Grounds Within",
+    hasBeenRead: false,
+  },
+];
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
-  type Query {
-    hello: String
+  type Book {
+    id: ID!
+    title: String!
+    hasBeenRead: Boolean!
   }
+
+  type Query {
+    books: [Book]
+  }
+
+  type Mutation {
+  addBook(id: ID!, title: String!): [Book]
+}
 `;
 
 // Provide resolver functions for your schema fields
-const resolvers = {
+const resolvers: IResolvers = {
   Query: {
-    hello: () => 'Hello world!',
+    books: () => books
   },
+  Mutation: {
+    addBook: (_, { id, title }) => {
+
+      if (books.some(({id: ID}) => id === ID)){
+        throw new UserInputError('This ID already exists in the database', {
+          invalidArgs: ['id'],
+        });
+      }
+
+      books.push({id, title, hasBeenRead: false});
+
+      return books;
+    }
+  }
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
 const app = express();
 
-app.get('/hello', (req, res) => {
+app.get('/hello', (_, res) => {
   res.send("Hello World, I'm a Rest Endpoint")
 })
 
