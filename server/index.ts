@@ -42,7 +42,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-  addBook(id: ID!, title: String!): [Book]
+  addBook(id: Int!, title: String!): [Book]
+  updateBook(id: Int!, title: String!, hasBeenRead: Boolean!): [Book]
 }
 `;
 
@@ -61,6 +62,21 @@ const resolvers: IResolvers = {
       }
 
       books.push({id, title, hasBeenRead: false});
+
+      return books;
+    },
+
+    updateBook: (_, {id, title, hasBeenRead}) => {
+
+      const index = books.findIndex(({id: ID}) => id === ID);
+
+      if (index === -1){
+        throw new UserInputError('This ID does not exist in the database', {
+          invalidArgs: ['id'],
+        });
+      }
+
+      books[index] = {id, title, hasBeenRead};
 
       return books;
     }
