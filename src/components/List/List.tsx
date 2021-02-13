@@ -34,12 +34,12 @@ const List = ({ books, onChange, onAdd }: ListProps) => {
   return (
     <Card>
       <Box display="flex" alignItems="center" justifyContent="center">
-        <Counter value={numberRead} mr={3} />
+        <Counter value={numberRead} mr={3} flexShrink={0}/>
         <Typography variant="h6">Books read this year</Typography>
       </Box>
-      <Box my={5} mx={10}>
+      <Box my={5} mx={{xs: 0, md: 10}}>
         <Grid container spacing={4}>
-          {books.map(({ hasBeenRead, title, id }, index) => (
+          {books.map(({ hasBeenRead, title, id }) => (
             <Grid item xs={12} key={id}>
               <ListItem
                 title={title}
@@ -54,7 +54,7 @@ const List = ({ books, onChange, onAdd }: ListProps) => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Box ml="34px">
+            <Box ml={{xs: 0, md: "34px"}}>
               <Input
                 value={inputValue}
                 onChange={setInputValue}

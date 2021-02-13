@@ -11,7 +11,7 @@ export interface ListItemProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   input: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1, 2),
     borderRadius: theme.shape.borderRadius,
     "&:hover, &:focus": {
       backgroundColor: theme.palette.action.hover,
@@ -50,15 +50,14 @@ const ListItem = ({
       disabled={hasBeenRead}
       classes={classes}
       value={inputValue}
-      // onKeyDown={({ keyCode, target: { value } }: any) => {
-      //   if (keyCode === 13) onTitleChange(value);
-      // }}
+      multiline
       fullWidth
       onChange={({ target: { value } }) => setInputValue(value)}
       disableUnderline
       startAdornment={Adornment}
-      onBlur={({ target: { value } }) => {
-        if (value !== title) onTitleChange(value);
+      onBlur={(event) => {
+        const value = event?.target?.value;
+        if (!!value && value !== title) onTitleChange(value);
       }}
     />
   );

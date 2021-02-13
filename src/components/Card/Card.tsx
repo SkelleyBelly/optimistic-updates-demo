@@ -1,20 +1,18 @@
-import { makeStyles, Paper, Theme } from "@material-ui/core";
+import { Box, Paper } from "@material-ui/core";
 import { ReactNode } from "react";
 
 export interface CardProps {
-    children: ReactNode
+  children: ReactNode;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-    card: {
-        padding: theme.spacing(5)
-    }
-}))
-
-const Card = ({children}: CardProps) => {
-    const classes = useStyles();
-
-    return <Paper elevation={1} className={classes.card}>{children}</Paper>
-}
+const Card = ({ children }: CardProps) => {
+  return (
+    <Box clone px={5} py={8}>
+      <Paper elevation={1}>
+        {children}
+      </Paper>
+    </Box>
+  );
+};
 
 export default Card;

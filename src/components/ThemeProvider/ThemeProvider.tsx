@@ -11,6 +11,9 @@ const theme = createMuiTheme({
   typography: {
     fontSize: 20,
     fontFamily: '"Quicksand", "Helvetica", "Arial", sans-serif',
+    caption: {
+      fontSize: "0.8rem"
+    }
   },
   spacing: 4,
   shape: {

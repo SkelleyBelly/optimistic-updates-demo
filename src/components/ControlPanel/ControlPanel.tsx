@@ -13,10 +13,10 @@ export interface ControlPanelProps {
   onChange: (config: Config) => void;
 }
 
-const keyMap: Array<[string, keyof Config]> = [
-  ["Optimistic", "optimistic"],
-  ["Delay", "delay"],
-  ["Force Error", "forceError"],
+const keyMap: Array<[string, string, keyof Config]> = [
+  ["Optimistic", "Provide optimistic responses" ,"optimistic"],
+  ["Delay", "Delay endpoint response by 1500ms", "delay"],
+  ["Force Error", "Make endpoint return error", "forceError"],
 ];
 
 const ControlPanel = ({ config, onChange }: ControlPanelProps) => {
@@ -35,10 +35,11 @@ const ControlPanel = ({ config, onChange }: ControlPanelProps) => {
       <Typography variant="h5" align="center" gutterBottom>
         Controls
       </Typography>
-      {keyMap.map(([label, key]) => (
-        <Box display="flex" justifyContent="space-between" key={label}>
-          <Box>
+      {keyMap.map(([label, caption, key]) => (
+        <Box display="flex" justifyContent="space-between" alignItems="center" key={label} mb={4}>
+          <Box mr={2} display="flex" flexDirection="column">
             <Typography>{label}</Typography>
+            <Typography variant="caption" color="textSecondary">{caption}</Typography>
           </Box>
           <Switch name={key} onChange={handleChange} checked={config[key]} />
         </Box>
