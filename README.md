@@ -1,3 +1,5 @@
+[![Netlify Status][netlify-shield]][netlify-demo-url]
+
 <br />
 <p align="center">
   <a href="https://github.com/SkelleyBelly/optimistic-updates-demo">
@@ -9,8 +11,8 @@
   <p align="center">
     Example using Lerna to manage a monorepo that contains a database, component library, client and api service
     <br />
-    <!-- <a href="https://github.com/SkelleyBelly/optimistic-updates-demo">View Demo</a> -->
-    <!-- · -->
+    <a href="https://optimistic-update.netlify.app">View Demo</a>
+    ·
     <a href="https://github.com/SkelleyBelly/optimistic-updates-demo/issues">Report Bug</a>
     ·
     <a href="https://github.com/SkelleyBelly/optimistic-updates-demo/issues">Request Feature</a>
@@ -42,7 +44,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Optimistic Updates Demo Screenshot][product-screenshot]](https://example.com)
+[![Optimistic Updates Demo Screenshot][product-screenshot]][netlify-demo-url]
 
 An example repo created to demonstrate optimistic updates in Apollo Client and SWR. It includes:
 
@@ -105,3 +107,5 @@ Project Link: [https://github.com/SkelleyBelly/optimistic-updates-demo](https://
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [product-screenshot]: ./optimistic-update-screenshot.png
+[netlify-shield]: https://api.netlify.com/api/v1/badges/c911a516-69a6-4980-8945-42720149ede8/deploy-status
+[netlify-demo-url]: https://optimistic-update.netlify.app
