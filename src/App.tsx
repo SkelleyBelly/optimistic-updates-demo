@@ -1,8 +1,23 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Container, Grid, Slide } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Link,
+  Typography,
+} from "@material-ui/core";
 import { useCallback, useMemo, useState } from "react";
-import { List, Book, ControlPanel, useSnackbar } from "./components";
+import {
+  List,
+  Book,
+  ControlPanel,
+  useSnackbar,
+  Explainer,
+  Help,
+} from "./components";
 import { GET_BOOKS, UPDATE_BOOK, ADD_BOOK } from "./query";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 const DELAY = 1500;
 
@@ -26,7 +41,7 @@ const App = () => {
 
   const { delay, optimistic, forceError } = config;
 
-  const { data, loading } = useQuery<{ books: Array<Book> }>(GET_BOOKS, {
+  const { data } = useQuery<{ books: Array<Book> }>(GET_BOOKS, {
     onError: createErrorMessage,
   });
 
@@ -97,17 +112,46 @@ const App = () => {
   );
 
   return (
-    <Container maxWidth="lg" style={{ paddingTop: 50 }}>
-      <Slide in={!loading} direction="up">
-        <Grid container spacing={10}>
-          <Grid item xs={12} md={4}>
-            <ControlPanel config={config} onChange={setConfig} />
+    <Container maxWidth="lg">
+      <Box
+        display="inline-block"
+        textAlign="center"
+        width="100%"
+        px={4}
+        py={2}
+        mt={5}
+        bgcolor="primary.light"
+        borderRadius={12}
+      >
+        <Typography variant="h4" component="h1" color="primary">
+          Optimistic Updates Demo
+        </Typography>
+      </Box>
+      <Box my={4}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md>
+            <Help />
           </Grid>
-          <Grid item xs={12} md={8}>
-            <List books={books} onChange={updateBook} onAdd={addBook} />
+          <Grid item xs>
+            <Explainer />
           </Grid>
+          <IconButton
+            color="primary"
+            component={Link}
+            href="https://github.com/SkelleyBelly/optimistic-updates-demo"
+          >
+            <GitHubIcon />
+          </IconButton>
         </Grid>
-      </Slide>
+      </Box>
+      <Grid container spacing={10}>
+        <Grid item xs={12} md={4}>
+          <ControlPanel config={config} onChange={setConfig} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <List books={books} onChange={updateBook} onAdd={addBook} />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

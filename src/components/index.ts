@@ -9,5 +9,7 @@ export { default as Counter } from './Counter'
 export { default as Input } from './Input'
 export { default as ControlPanel } from './ControlPanel'
 export { default as SnackbarProvider, useSnackbar } from './SnackbarProvider'
+export { default as Help } from './Help'
+export { default as Explainer } from './Explainer'
 
 export type {Book};
